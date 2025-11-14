@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Size Info</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .info-box {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-top: 0;
+            color: #333;
+        }
+        .metric {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+        }
+        .metric-label {
+            font-weight: bold;
+            color: #666;
+            font-size: 14px;
+        }
+        .metric-value {
+            font-size: 24px;
+            color: #333;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="info-box">
+        <h1>Your Screen Information</h1>
+
+        <div class="metric">
+            <div class="metric-label">Total Screen Resolution</div>
+            <div class="metric-value" id="screen-size"></div>
+        </div>
+
+        <div class="metric">
+            <div class="metric-label">Browser Viewport (Current Window)</div>
+            <div class="metric-value" id="viewport-size"></div>
+        </div>
+
+        <div class="metric">
+            <div class="metric-label">Available Screen (minus OS taskbar)</div>
+            <div class="metric-value" id="available-size"></div>
+        </div>
+
+        <div class="metric">
+            <div class="metric-label">Device Pixel Ratio</div>
+            <div class="metric-value" id="pixel-ratio"></div>
+        </div>
+    </div>
+
+    <script>
+        function updateSizes() {
+            document.getElementById('screen-size').textContent =
+                `${screen.width} × ${screen.height}px`;
+
+            document.getElementById('viewport-size').textContent =
+                `${window.innerWidth} × ${window.innerHeight}px`;
+
+            document.getElementById('available-size').textContent =
+                `${screen.availWidth} × ${screen.availHeight}px`;
+
+            document.getElementById('pixel-ratio').textContent =
+                `${window.devicePixelRatio}x (${screen.width * window.devicePixelRatio} × ${screen.height * window.devicePixelRatio}px physical)`;
+        }
+
+        updateSizes();
+        window.addEventListener('resize', updateSizes);
+    </script>
+</body>
+</html>
