@@ -7,7 +7,6 @@
     <style>
         body {
             font-family: system-ui, -apple-system, sans-serif;
-            max-width: 800px;
             margin: 50px auto;
             padding: 20px;
             background: #f5f5f5;
@@ -39,6 +38,30 @@
             color: #333;
             margin-top: 5px;
         }
+        .pixel-demo {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        .red-pixel {
+            width: 1px;
+            height: 1px;
+            background-color: red;
+            display: inline-block;
+        }
+        .pixel-square-100 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            display: inline-block;
+        }
+        .pixel-square-1000 {
+            width: 1000px;
+            height: 1000px;
+            background-color: red;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -63,6 +86,19 @@
         <div class="metric">
             <div class="metric-label">Device Pixel Ratio</div>
             <div class="metric-value" id="pixel-ratio"></div>
+        </div>
+
+        <div class="metric">
+            <div class="metric-label">Pixel Size</div>
+            <div class="pixel-demo">
+                This is one pixel -> <div class="red-pixel"></div>
+            </div>
+            <div class="pixel-demo">
+                This is 1,000 pixels (100 x 100) -> <div class="pixel-square-100"></div>
+            </div>
+            <div class="pixel-demo">
+                This is 1,000,000 pixels (1000 x 1000) -> <div class="pixel-square-1000"></div>
+            </div>
         </div>
     </div>
 
