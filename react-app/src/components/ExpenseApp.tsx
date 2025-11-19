@@ -22,11 +22,13 @@ export const ExpenseApp = () => {
         setExpenses(expenses.filter(expense => expense.id !== id));
     }
 
+    const total = expenses.reduce((total, expense) => total + expense.amount, 0);
+
     return (
         <div>
             Expense App
             <ExpenseForm onSubmit={addExpense}/>
-            <ExpenseTable expenses={expenses} onDelete={deleteExpense}/>
+            <ExpenseTable expenses={expenses} total={total} onDelete={deleteExpense}/>
         </div>
     );
 };
