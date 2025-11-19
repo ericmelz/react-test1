@@ -8,9 +8,12 @@ type Props = {
     onDelete: (id: string) => void;
 };
 export const ExpenseTable = ({expenses, total, onDelete}: Props) => {
+    if (expenses.length === 0) {
+        return null;
+    }
     return (
         <>
-            <table>
+            <table className="table table-bordered">
                 <thead>
                 <tr>
                     <th>Description</th>
@@ -32,12 +35,22 @@ export const ExpenseTable = ({expenses, total, onDelete}: Props) => {
                             {expense.category}
                         </td>
                         <td>
-                            <button onClick={() => onDelete(expense.id)}>Delete</button>
+                            <button className="btn btn-outline-danger" onClick={() => onDelete(expense.id)}>
+                                Delete
+                            </button>
                         </td>
                     </tr>)}
                 </tbody>
+                <tfoot>
+                <tr>
+                    <td>Total</td>
+                    <td>{total}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tfoot>
             </table>
-            <div>Total: {total}</div>
+
         </>
     );
 };
