@@ -11,13 +11,18 @@ export interface Expense {
 }
 
 export const ExpenseApp = () => {
-    const onSubmit = (data: Expense) => console.log(data);
+    const [expenses, setExpenses] = React.useState<Expense[]>([]);
 
+    const onSubmit = (expense: Expense) => {
+        console.log(expense);
+        setExpenses([...expenses, expense]);
+
+    }
     return (
         <div>
             Expense App
             <ExpenseForm onSubmit={onSubmit}/>
-            <ExpenseTable />
+            <ExpenseTable expenses={expenses}/>
         </div>
     );
 };
