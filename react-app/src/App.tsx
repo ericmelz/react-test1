@@ -1,11 +1,9 @@
-import {useState} from "react";
-import {ExpandableText} from "./components/ExpandableText/ExpandableText";
-import {Form} from "./components/Form";
+import {ExpenseApp} from "./components/ExpenseApp";
 
 function App() {
     return (
         <>
-            <Form />
+            <ExpenseApp />
         </>
     )
 }
