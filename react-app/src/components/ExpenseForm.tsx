@@ -3,6 +3,7 @@ import * as React from 'react';
 import {FieldValues, useForm} from 'react-hook-form';
 import {z} from 'zod';
 import {zodResolver} from '@hookform/resolvers/zod';
+import {Expense} from "./ExpenseApp";
 
 const schema = z.object(
     {
@@ -15,15 +16,22 @@ const schema = z.object(
 type FormData = z.infer<typeof schema>;
 
 type Props = {
-
+    onSubmit: (data: Expense) => void;
 };
-export const ExpenseForm = (props: Props) => {
+export const ExpenseForm = ({onSubmit}: Props) => {
     const {register, handleSubmit, formState: {errors, isValid}} = useForm<FormData>({resolver: zodResolver(schema)})
-    const onSubmit = (data: FieldValues) => console.log(data);
+
+    const handleFormSubmit = (data: FormData) => {
+        const expense: Expense = {
+            ...data,
+            category: data.category === '' ? undefined : data.category
+        };
+        onSubmit(expense);
+    };
 
     return (
         <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(handleFormSubmit)}>
                 <div className="mb-3">
                     <label htmlFor="description" className="form-label">Description</label>
                     <input {...register('description')}
