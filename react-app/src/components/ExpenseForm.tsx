@@ -23,6 +23,7 @@ export const ExpenseForm = ({onSubmit}: Props) => {
 
     const handleFormSubmit = (data: FormData) => {
         const expense: Expense = {
+            id: crypto.randomUUID(),
             ...data,
             category: data.category === '' ? undefined : data.category
         };

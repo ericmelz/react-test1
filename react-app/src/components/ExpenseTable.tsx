@@ -4,8 +4,9 @@ import {Expense} from "./ExpenseApp";
 
 type Props = {
     expenses: Expense[];
+    onDelete: (id: string) => void;
 };
-export const ExpenseTable = (props: Props) => {
+export const ExpenseTable = ({expenses, onDelete}: Props) => {
     return (
         <table>
             <thead>
@@ -17,8 +18,8 @@ export const ExpenseTable = (props: Props) => {
             </tr>
             </thead>
             <tbody>
-            {props.expenses.map((expense, i) =>
-                <tr key={i}>
+            {expenses.map(expense =>
+                <tr key={expense.id}>
                     <td>
                         {expense.description}
                     </td>
@@ -29,7 +30,7 @@ export const ExpenseTable = (props: Props) => {
                         {expense.category}
                     </td>
                     <td>
-                        <button>Delete</button>
+                        <button onClick={() => onDelete(expense.id)}>Delete</button>
                     </td>
                 </tr>)}
             </tbody>
