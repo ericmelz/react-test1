@@ -1,20 +1,22 @@
-import * as React from "react";
-import {ProductList} from "./components/ProductList";
+import axios from 'axios';
+import {useEffect, useState} from "react";
 
+interface User {
+    id: number;
+    name: string;
+    username: string;
+    email: string;
+}
 function App() {
-    const [category, setCategory] = React.useState<string>('');
+    const [users, setUsers] = useState<User[]>([]);
 
-    return (
-        <>
-            <select name="product" id="product" className="form-select" onChange={(e) => setCategory(e.target.value)}>
-                <option value="Toys">Toys</option>
-                <option value="Electronics">Electronics</option>
-                <option value="Clothing">Clothing</option>
-            </select>
-            <ProductList category={category}/>
-
-        </>
-    );
+    useEffect(() => {
+        axios.get<User[]>('https://jsonplaceholder.typicode.com/users')
+            .then(res => setUsers(res.data));
+    }, []);
+    return <ul>
+        {users.map(user => <li key={user.id}>{user.name}</li>)}
+    </ul>
 }
 
 export default App;
