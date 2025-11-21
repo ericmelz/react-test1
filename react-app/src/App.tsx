@@ -1,40 +1,33 @@
 import {useEffect, useState} from "react";
-import apiClient, {CanceledError, AxiosError} from "./services/api-client";
-
-interface User {
-    id: number;
-    name: string;
-    username: string;
-    email: string;
-}
+import {AxiosError, CanceledError} from "axios";
+import userService, {User} from "./services/user-service";
 
 function App() {
     const [users, setUsers] = useState<User[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const userClient = new userService();
 
     useEffect(() => {
-        const controller = new AbortController();
 
         setIsLoading(true);
-        apiClient
-            .get('/users', {signal: controller.signal})
-            .then(response => {
-                setUsers(response.data);
-                setIsLoading(false);
-                setError(
-                    null
-                )
-            })
+        const {request, cancel} = userClient.getAllUsers();
+        request.then(response => {
+            setUsers(response.data);
+            setIsLoading(false);
+            setError(
+                null
+            )
+        })
             .catch(error => {
                 if (error instanceof CanceledError)
                     return;
                 setError((error as AxiosError).message);
                 setIsLoading(false);
             })
-        // .finally(() => setIsLoading(false));
+            .finally(() => setIsLoading(false));
 
-        return () => controller.abort();
+        return () => cancel();
     }, []);
 
     const addUser = () => {
@@ -46,7 +39,7 @@ function App() {
         };
         setUsers([newUser, ...users]);
 
-        apiClient.post('/users', newUser)
+        userClient.addUser(newUser)
             .then(({data: savedUser}) => setUsers([savedUser, ...users]))
             .catch(error => {
                 setError(error.message);
@@ -57,7 +50,7 @@ function App() {
     const updateUser = (user: User) => {
         const updatedUser = {...user, name: 'Updated Name'};
         setUsers(users.map(u => u.id === user.id ? updatedUser : u));
-        apiClient.put(`/users/${user.id}`, updatedUser)
+        userClient.updateUser(updatedUser)
             .catch(error => {
                 setError(error.message);
                 setUsers(users);
@@ -67,7 +60,7 @@ function App() {
     function deleteUser(user: User) {
         const originalUsers = [...users];
         setUsers(users.filter(u => u.id !== user.id));
-        apiClient.delete(`/users/${user.id}`)
+        userClient.deleteUser(user.id)
             .catch(error => {
                 setError(error.message);
                 setUsers(originalUsers);
