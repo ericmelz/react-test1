@@ -6,12 +6,11 @@ function App() {
     const [users, setUsers] = useState<User[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
-    const userClient = new userService();
 
     useEffect(() => {
 
         setIsLoading(true);
-        const {request, cancel} = userClient.getAllUsers();
+        const {request, cancel} = userService.getAll<User>();
         request.then(response => {
             setUsers(response.data);
             setIsLoading(false);
@@ -39,7 +38,7 @@ function App() {
         };
         setUsers([newUser, ...users]);
 
-        userClient.addUser(newUser)
+        userService.create(newUser)
             .then(({data: savedUser}) => setUsers([savedUser, ...users]))
             .catch(error => {
                 setError(error.message);
@@ -50,7 +49,7 @@ function App() {
     const updateUser = (user: User) => {
         const updatedUser = {...user, name: 'Updated Name'};
         setUsers(users.map(u => u.id === user.id ? updatedUser : u));
-        userClient.updateUser(updatedUser)
+        userService.update(updatedUser)
             .catch(error => {
                 setError(error.message);
                 setUsers(users);
@@ -60,7 +59,7 @@ function App() {
     function deleteUser(user: User) {
         const originalUsers = [...users];
         setUsers(users.filter(u => u.id !== user.id));
-        userClient.deleteUser(user.id)
+        userService.delete(user.id)
             .catch(error => {
                 setError(error.message);
                 setUsers(originalUsers);
