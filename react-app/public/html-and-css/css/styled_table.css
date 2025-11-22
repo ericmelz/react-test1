@@ -1,9 +1,12 @@
-table {
+table, td, th {
     border-collapse: collapse;
+    border: 1px solid #c4dcf3;
+    border-left: 0;
+    border-right: 0;
 }
 
 tbody tr:nth-child(odd) {
-    background: #c4dcf3;
+    background: #eef7ff;
 }
 
 th, tfoot tr {
@@ -15,3 +18,6 @@ th, td {
     padding: 10px;
 }
 
+tfoot {
+    text-align: left;
+}
