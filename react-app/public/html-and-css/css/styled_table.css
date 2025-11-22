@@ -1,0 +1,17 @@
+table {
+    border-collapse: collapse;
+}
+
+tbody tr:nth-child(odd) {
+    background: #c4dcf3;
+}
+
+th, tfoot tr {
+    background: #427fef;
+    color: white;
+}
+
+th, td {
+    padding: 10px;
+}
+
