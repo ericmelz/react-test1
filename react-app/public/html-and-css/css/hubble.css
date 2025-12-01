@@ -1,0 +1,90 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Banner - full viewport height with centered content */
+.banner {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../images/hubble/background_w320.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Heading styles */
+.heading {
+    font-size: 3rem;
+    font-weight: 900;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    word-spacing: 0.5em;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+/* Tagline styles */
+.tagline {
+    font-size: 1.5rem;
+    font-weight: 300;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+}
+
+/* Tablet and larger - 853px image */
+@media (min-width: 768px) {
+    .banner {
+        background-image: url('../images/hubble/background_w853.jpg');
+    }
+
+    .heading {
+        font-size: 4rem;
+    }
+
+    .tagline {
+        font-size: 1.8rem;
+    }
+}
+
+/* Laptop and larger - 1228px image */
+@media (min-width: 1024px) {
+    .banner {
+        background-image: url('../images/hubble/background_w1228.jpg');
+    }
+
+    .heading {
+        font-size: 5rem;
+    }
+
+    .tagline {
+        font-size: 2rem;
+    }
+}
+
+/* Desktop and larger - 1440px image */
+@media (min-width: 1440px) {
+    .banner {
+        background-image: url('../images/hubble/background_w1440.jpg');
+    }
+
+    .heading {
+        font-size: 6rem;
+    }
+
+    .tagline {
+        font-size: 2.2rem;
+    }
+}
